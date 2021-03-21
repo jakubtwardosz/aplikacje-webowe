@@ -2,7 +2,7 @@ let boomSound: HTMLAudioElement;
 let clapSound: HTMLAudioElement;
 let hihatSound: HTMLAudioElement;
 let kickSound: HTMLAudioElement;
-let openhatSound: HTMLAudioElement;
+let openhihat: HTMLAudioElement;
 let rideSound: HTMLAudioElement;
 let snareSound: HTMLAudioElement;
 let tinkSound: HTMLAudioElement;
@@ -27,9 +27,9 @@ function onPlayChannel1(): void {
 function getAudioElements(): void {
      boomSound = document.querySelector('[data-sound="boom"]');
      clapSound = document.querySelector('[data-sound="clap"]');
-     hihatSound = document.querySelector('[data-sound="kick"]');
-     kickSound = document.querySelector('[data-sound="clap"]');
-     openhatSound = document.querySelector('[data-sound="openhat"]');
+     hihatSound = document.querySelector('[data-sound="hihat"]');
+     kickSound = document.querySelector('[data-sound="kick"]');
+     openhihat = document.querySelector('[data-sound="openhihat"]');
      rideSound = document.querySelector('[data-sound="ride"]');
      snareSound = document.querySelector('[data-sound="snare"]');
      tinkSound = document.querySelector('[data-sound="tink"]');
@@ -66,8 +66,8 @@ function onKeyPress(ev: KeyboardEvent): void{
                 kickSound.play();
                 break;
             case 't':
-                openhatSound.currentTime = 0;
-                openhatSound.play();
+                openhihat.currentTime = 0;
+                openhihat.play();
                 break;
             case 'a':
                 rideSound.currentTime = 0;

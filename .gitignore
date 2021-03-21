@@ -1,0 +1,5 @@
+# Ignore all docx files
+*.docx
+
+# Ignore all txt files
+*.txt

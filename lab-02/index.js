@@ -2,7 +2,7 @@ var boomSound;
 var clapSound;
 var hihatSound;
 var kickSound;
-var openhatSound;
+var openhihat;
 var rideSound;
 var snareSound;
 var tinkSound;
@@ -23,9 +23,9 @@ function onPlayChannel1() {
 function getAudioElements() {
     boomSound = document.querySelector('[data-sound="boom"]');
     clapSound = document.querySelector('[data-sound="clap"]');
-    hihatSound = document.querySelector('[data-sound="kick"]');
-    kickSound = document.querySelector('[data-sound="clap"]');
-    openhatSound = document.querySelector('[data-sound="openhat"]');
+    hihatSound = document.querySelector('[data-sound="hihat"]');
+    kickSound = document.querySelector('[data-sound="kick"]');
+    openhihat = document.querySelector('[data-sound="openhihat"]');
     rideSound = document.querySelector('[data-sound="ride"]');
     snareSound = document.querySelector('[data-sound="snare"]');
     tinkSound = document.querySelector('[data-sound="tink"]');
@@ -57,8 +57,8 @@ function playSound(key) {
             kickSound.play();
             break;
         case 't':
-            openhatSound.currentTime = 0;
-            openhatSound.play();
+            openhihat.currentTime = 0;
+            openhihat.play();
             break;
         case 'a':
             rideSound.currentTime = 0;
