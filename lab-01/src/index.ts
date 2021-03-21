@@ -16,17 +16,48 @@ class StatsApp {
     startApp() {
         this.getInputs();
         this.watchInputValues();
+    }   
 
-        console.log("Hello world!");
-    }
-    watchInputValues() {
-        throw new Error("Method not implemented.");
-    }
     getInputs() {
-        throw new Error("Method not implemented.");
+        this.data1Input = document.querySelector('#data1');
+        this.data2Input = document.querySelector('#data2');
+        this.data3Input = document.querySelector('#data3');
+        this.data4Input = document.querySelector('#data3');
+
+        this.sumInput = document.querySelector('#sum');
+        this.avgInput = document.querySelector('#avg');
+        this.minInput = document.querySelector('#min');
+        this.maxInput = document.querySelector('#max');
     }
 
+    watchInputValues() {
+        this.data1Input.addEventListener('input', () => this.computeData());
+        this.data2Input.addEventListener('input', () => this.computeData());
+        this.data3Input.addEventListener('input', () => this.computeData());
+        this.data4Input.addEventListener('input', () => this.computeData());
+    }
 
+    computeData(){
+        const data1 = +this.data1Input.value;
+        const data2 = +this.data1Input.value;
+        const data3 = +this.data1Input.value;
+        const data4 = +this.data1Input.value;
 
+        const sum = data1 + data2 + data3 + data4;
+        const avg = sum / 4;
+        const min = Math.min(data1, data2, data3, data4);
+        const max = Math.max(data1, data2, data3, data4);
+
+    }
+
+    showStats(sum: number, avg: number, min: number, max: number){
+        this.sumInput.value = sum.toString();
+        this.avgInput.value = avg.toString();
+        this.minInput.value = min.toString();
+        this.maxInput.value = max.toString();
+
+    }
+    
     
 }
+const statsApp = new StatsApp();
