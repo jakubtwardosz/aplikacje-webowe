@@ -37,6 +37,8 @@ function onKeyPress(ev) {
     channel1.push({ key: key, time: time });
     playSound(key);
     console.log(channel1);
+
+    /* Dodać .addClass.("active") */
 }
 function playSound(key) {
     switch (key) {
