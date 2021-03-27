@@ -16,6 +16,7 @@ class StatsApp {
     startApp() {
         this.getInputs();
         this.watchInputValues();
+        console.log(this.getInputs());
     }   
 
     getInputs() {
@@ -39,14 +40,16 @@ class StatsApp {
 
     computeData(){
         const data1 = +this.data1Input.value;
-        const data2 = +this.data1Input.value;
-        const data3 = +this.data1Input.value;
-        const data4 = +this.data1Input.value;
+        const data2 = +this.data2Input.value;
+        const data3 = +this.data3Input.value;
+        const data4 = +this.data4Input.value;
 
         const sum = data1 + data2 + data3 + data4;
         const avg = sum / 4;
         const min = Math.min(data1, data2, data3, data4);
         const max = Math.max(data1, data2, data3, data4);
+
+        this.showStats(sum, avg, min, max);
 
     }
 
@@ -55,9 +58,7 @@ class StatsApp {
         this.avgInput.value = avg.toString();
         this.minInput.value = min.toString();
         this.maxInput.value = max.toString();
-
-    }
-    
-    
+    }   
 }
+
 const statsApp = new StatsApp();

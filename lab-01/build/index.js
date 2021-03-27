@@ -5,6 +5,7 @@ var StatsApp = /** @class */ (function () {
     StatsApp.prototype.startApp = function () {
         this.getInputs();
         this.watchInputValues();
+        console.log(this.getInputs());
     };
     StatsApp.prototype.getInputs = function () {
         this.data1Input = document.querySelector('#data1');
@@ -25,13 +26,14 @@ var StatsApp = /** @class */ (function () {
     };
     StatsApp.prototype.computeData = function () {
         var data1 = +this.data1Input.value;
-        var data2 = +this.data1Input.value;
-        var data3 = +this.data1Input.value;
-        var data4 = +this.data1Input.value;
+        var data2 = +this.data2Input.value;
+        var data3 = +this.data3Input.value;
+        var data4 = +this.data4Input.value;
         var sum = data1 + data2 + data3 + data4;
         var avg = sum / 4;
         var min = Math.min(data1, data2, data3, data4);
         var max = Math.max(data1, data2, data3, data4);
+        this.showStats(sum, avg, min, max);
     };
     StatsApp.prototype.showStats = function (sum, avg, min, max) {
         this.sumInput.value = sum.toString();
