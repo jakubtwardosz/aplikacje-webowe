@@ -1,4 +1,8 @@
 class StatsApp {
+
+    addButton: HTMLButtonElement;
+    inputCounter: HTMLInputElement;
+
     data1Input: HTMLInputElement;
     data2Input: HTMLInputElement;
     data3Input: HTMLInputElement;
@@ -16,10 +20,32 @@ class StatsApp {
     startApp() {
         this.getInputs();
         this.watchInputValues();
-        console.log(this.getInputs());
-    }   
+    }
+    
+    addInputs(){
 
+        const container = document.querySelector('.input-data');
+
+        
+        while (container.hasChildNodes()) {
+            container.removeChild(container.lastChild);
+        }
+
+        for (let index = 0; index < +this.inputCounter.value; index++) {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.setAttribute('id', 'data' + index);
+
+            container.appendChild(input);
+            
+        }
+
+    }
+   
     getInputs() {
+        this.inputCounter = document.querySelector('#inputsCounter');
+        this.addButton = document.querySelector('#addInputs');
+
         this.data1Input = document.querySelector('#data1');
         this.data2Input = document.querySelector('#data2');
         this.data3Input = document.querySelector('#data3');
@@ -32,6 +58,8 @@ class StatsApp {
     }
 
     watchInputValues() {
+        this.addButton.addEventListener('click', () => this.addInputs());
+        
         this.data1Input.addEventListener('input', () => this.computeData());
         this.data2Input.addEventListener('input', () => this.computeData());
         this.data3Input.addEventListener('input', () => this.computeData());

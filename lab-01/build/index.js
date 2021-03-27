@@ -5,9 +5,22 @@ var StatsApp = /** @class */ (function () {
     StatsApp.prototype.startApp = function () {
         this.getInputs();
         this.watchInputValues();
-        console.log(this.getInputs());
+    };
+    StatsApp.prototype.addInputs = function () {
+        var container = document.querySelector('.input-data');
+        while (container.hasChildNodes()) {
+            container.removeChild(container.lastChild);
+        }
+        for (var index = 0; index < +this.inputCounter.value; index++) {
+            var input = document.createElement('input');
+            input.type = 'text';
+            input.setAttribute('id', 'data' + index);
+            container.appendChild(input);
+        }
     };
     StatsApp.prototype.getInputs = function () {
+        this.inputCounter = document.querySelector('#inputsCounter');
+        this.addButton = document.querySelector('#addInputs');
         this.data1Input = document.querySelector('#data1');
         this.data2Input = document.querySelector('#data2');
         this.data3Input = document.querySelector('#data3');
@@ -19,6 +32,7 @@ var StatsApp = /** @class */ (function () {
     };
     StatsApp.prototype.watchInputValues = function () {
         var _this = this;
+        this.addButton.addEventListener('click', function () { return _this.addInputs(); });
         this.data1Input.addEventListener('input', function () { return _this.computeData(); });
         this.data2Input.addEventListener('input', function () { return _this.computeData(); });
         this.data3Input.addEventListener('input', function () { return _this.computeData(); });
