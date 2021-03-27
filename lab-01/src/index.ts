@@ -8,6 +8,8 @@ class StatsApp {
     data3Input: HTMLInputElement;
     data4Input: HTMLInputElement;
 
+    inputArray: HTMLInputElement[];
+
     sumInput: HTMLInputElement;
     avgInput: HTMLInputElement;
     minInput: HTMLInputElement;
@@ -34,19 +36,28 @@ class StatsApp {
         for (let index = 0; index < +this.inputCounter.value; index++) {
             const input = document.createElement('input');
             input.type = 'text';
-            input.setAttribute('id', 'data' + index);
-
+            input.setAttribute('id', 'data' + (index + 1));
+            input.className = 'data';
             container.appendChild(input);
             
         }
 
     }
+
+
+
+
    
     getInputs() {
         this.inputCounter = document.querySelector('#inputsCounter');
         this.addButton = document.querySelector('#addInputs');
 
-        this.data1Input = document.querySelector('#data1');
+        this.inputArray = [];
+
+        const dataInputs = document.querySelectorAll('.data');
+
+
+        this.data1Input = document.querySelector('#data1'); // Jak z tego zrobić tablicę?
         this.data2Input = document.querySelector('#data2');
         this.data3Input = document.querySelector('#data3');
         this.data4Input = document.querySelector('#data3');
@@ -60,19 +71,22 @@ class StatsApp {
     watchInputValues() {
         this.addButton.addEventListener('click', () => this.addInputs());
         
-        this.data1Input.addEventListener('input', () => this.computeData());
+        this.data1Input.addEventListener('input', () => this.computeData()); // Jak z tego zrobić pętlę?
         this.data2Input.addEventListener('input', () => this.computeData());
         this.data3Input.addEventListener('input', () => this.computeData());
         this.data4Input.addEventListener('input', () => this.computeData());
     }
 
     computeData(){
-        const data1 = +this.data1Input.value;
+        
+
+
+        const data1 = +this.data1Input.value; // +zmienia na typ number
         const data2 = +this.data2Input.value;
         const data3 = +this.data3Input.value;
         const data4 = +this.data4Input.value;
 
-        const sum = data1 + data2 + data3 + data4;
+        const sum = data1 + data2 + data3 + data4; // Przepisać to
         const avg = sum / 4;
         const min = Math.min(data1, data2, data3, data4);
         const max = Math.max(data1, data2, data3, data4);
@@ -86,7 +100,12 @@ class StatsApp {
         this.avgInput.value = avg.toString();
         this.minInput.value = min.toString();
         this.maxInput.value = max.toString();
-    }   
+    }
+    
+    
+    // sum(): number{
+    //     return a + blur;
+    // }
 }
 
 const statsApp = new StatsApp();
