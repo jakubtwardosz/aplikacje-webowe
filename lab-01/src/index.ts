@@ -16,6 +16,7 @@ class StatsApp {
     maxInput: HTMLInputElement;
 
     constructor(){
+        this.inputArray = [];
         this.startApp();
     }
 

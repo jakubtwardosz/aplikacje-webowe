@@ -11,6 +11,7 @@ var channel1 = [];
 appStart();
 function appStart() {
     document.addEventListener('keypress', onKeyPress);
+    document.addEventListener('transitioned', onTransitioned);
     var btnPlayChannel1 = document.querySelector('#playChannel1');
     btnPlayChannel1.addEventListener('click', onPlayChannel1);
     getAudioElements();
@@ -37,46 +38,58 @@ function onKeyPress(ev) {
     channel1.push({ key: key, time: time });
     playSound(key);
     console.log(channel1);
-
-    /* Dodać .addClass.("active") */
 }
+function onTransitioned(e) {
+    this.classList.remove('playing');
+}
+// to może być jeden foreach
+// usuwanie klasy playing
 function playSound(key) {
     switch (key) {
         case 'q':
             boomSound.currentTime = 0;
             boomSound.play();
+            boomSound.classList.add('playing');
             break;
         case 'w':
             clapSound.currentTime = 0;
             clapSound.play();
+            clapSound.classList.add('playing');
             break;
         case 'e':
             hihatSound.currentTime = 0;
             hihatSound.play();
+            hihatSound.classList.add('playing');
             break;
         case 'r':
             kickSound.currentTime = 0;
             kickSound.play();
+            kickSound.classList.add('playing');
             break;
         case 't':
             openhihat.currentTime = 0;
             openhihat.play();
+            openhihat.classList.add('playing');
             break;
         case 'a':
             rideSound.currentTime = 0;
             rideSound.play();
+            rideSound.classList.add('playing');
             break;
         case 's':
             snareSound.currentTime = 0;
             snareSound.play();
+            snareSound.classList.add('playing');
             break;
         case 'd':
             tinkSound.currentTime = 0;
             tinkSound.play();
+            tinkSound.classList.add('playing');
             break;
         case 'f':
             tomSound.currentTime = 0;
             tomSound.play();
+            tomSound.classList.add('playing');
             break;
     }
 }
