@@ -1,16 +1,26 @@
 export class App {
-    opwApiKey = '50d53005c0fd5f556bb4ef15224c4209';
+    // Zmienić klucz api po aktywacji 
+    opwApiKey = '51069f88456216e76d29bc1c50d8e00f';
     constructor() {
-        this.getCityInfo('zakopane')
+        // Wywołać po kilknięciu przycisku dodaj
+        //this.getCityInfo();
     }
     async getCityInfo(city: string) {
-        const weather = await this.getWeather('zakopane');
-        this.saveData(weather);
+
+        if(city){
+            const weather = await this.getWeather(city);
+            
+            if (weather && weather.cod === 200){
+                this.saveData(weather);
+            }
+            return weather.cod;
+        }     
+        
     }
     async getWeather(city: string): Promise<any> {
         const openWeatherUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${this.opwApiKey}`;
         const weatherResponse = await fetch(openWeatherUrl);
-        const weatherData = await weatherResponse.json();
+        const weatherData = await weatherResponse.json(); // JSON.parse()
         console.log(weatherData);
         return weatherData;
     }
@@ -26,3 +36,5 @@ export class App {
         }
     }
 }
+
+// Wrócić do nagrania lab
