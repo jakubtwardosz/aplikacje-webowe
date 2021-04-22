@@ -1,7 +1,9 @@
 import { App } from './app';
+import { Ui } from './ui';
 import './main.scss';
 
 const app = new App();
+const ui = new Ui();
 
 class Main {
 
@@ -20,9 +22,13 @@ class Main {
 
         addCityForm.addEventListener('submit', (event) => {    
             event.preventDefault();
-            console.log(cityName.value);
-            console.log(app.getCityInfo(cityName.value));
-        })        
+
+            const currentVal = cityName.value;
+
+            app.getCityInfo(currentVal).then((data : any) =>{
+                ui.populateUi(data);
+            })
+        })         
     }
 }
 

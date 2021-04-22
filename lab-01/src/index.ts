@@ -13,7 +13,7 @@ class StatsApp {
     sumInput: HTMLInputElement;
     avgInput: HTMLInputElement;
     minInput: HTMLInputElement;
-    maxInput: HTMLInputElement;
+    maxInput: HTMLInputElement; 
 
     constructor(){
         this.inputArray = [];
