@@ -7,76 +7,74 @@
   </head>
   <body>
     <main>
-      <h1>Weather app</h1>
-      
-      <form id="add-city-form">
-        <p>Podaj miasto:</p>
-        <input id="city-name" type="text">
-        <button id="add-button" type="submit">Dodaj</button>
-      </form>
+        
 
-        <div class="city-list">
-          <div class="row">
-            <div class="list-element">
-              <div class="location">
-                <div class="city-name">Kraków</div>
-                <p>Icon</p>
-              </div>
-              <div class="temperature-degree">19 °C</div>
-              <div class="pressure-unit">1018 hPA</div>
-              <div class="humidity-level">40 %</div>
-            </div>
-            <div class="list-element">
-              <div class="location">
-                <div class="city-name">Kraków</div>
-                <p>Icon</p>
-              </div>
-              <div class="temperature-degree">19 °C</div>
-              <div class="pressure-unit">1018 hPA</div>
-              <div class="humidity-level">40 %</div>
-            </div>  
-            <div class="list-element">
-              <div class="location">
-                <div class="city-name">Kraków</div>
-                <p>Icon</p>
-              </div>
-              <div class="temperature-degree">19 °C</div>
-              <div class="pressure-unit">1018 hPA</div>
-              <div class="humidity-level">40 %</div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="list-element">
-              <div class="location">
-                <div class="city-name">Kraków</div>
-                <p>Icon</p>
-              </div>
-              <div class="temperature-degree">19 °C</div>
-              <div class="pressure-unit">1018 hPA</div>
-              <div class="humidity-level">40 %</div>
-            </div>
-            <div class="list-element">
-              <div class="location">
-                <div class="city-name">Kraków</div>
-                <p>Icon</p>
-              </div>
-              <div class="temperature-degree">19 °C</div>
-              <div class="pressure-unit">1018 hPA</div>
-              <div class="humidity-level">40 %</div>
-            </div>  
-            <div class="list-element">
-              <div class="location">
-                <div class="city-name">Kraków</div>
-                <p>Icon</p>
-              </div>
-              <div class="temperature-degree">19 °C</div>
-              <div class="pressure-unit">1018 hPA</div>
-              <div class="humidity-level">40 %</div>
-            </div>
-          </div>
-        </div>
-                 
-      </div>
+        <div class="container">
+          <ul class="cities">
+            <li class="city">
+
+              <h2 class="city-name">
+                <span>Kraków</span>
+                <sup>PL</sup>
+              </h2>
+
+              <div class="city-temperature">19 <sup>°C</sup> </div>
+              <div class="city-pressure">1018 <sup>hPA</sup> </div>
+              <div class="city-humidity">40 <sup>%</sup></div>
+
+              <figure>
+                <img class="city-icon" src="http://openweathermap.org/img/w/01d.png" alt="Clouds">
+                <figcaption>Clouds</figcaption>
+              </figure>
+            
+            </li>
+
+            <li class="city">
+
+              <h2 class="city-name">
+                <span>Kraków</span>
+                <sup>PL</sup>
+              </h2>
+
+              <div class="city-temperature">19 <sup>°C</sup> </div>
+              <div class="city-pressure">1018 <sup>hPA</sup> </div>
+              <div class="city-humidity">40 <sup>%</sup></div>
+
+              <figure>
+                <img class="city-icon" src="http://openweathermap.org/img/w/01d.png" alt="Clouds">
+                <figcaption>Clouds</figcaption>
+              </figure>
+            
+            </li>
+
+            <li class="city">
+
+              <h2 class="city-name">
+                <span>Kraków</span>
+                <sup>PL</sup>
+              </h2>
+
+              <div class="city-temperature">19 <sup>°C</sup> </div>
+              <div class="city-pressure">1018 <sup>hPA</sup> </div>
+              <div class="city-humidity">40 <sup>%</sup></div>
+
+              <figure>
+                <img class="city-icon" src="http://openweathermap.org/img/w/01d.png" alt="Clouds">
+                <figcaption>Clouds</figcaption>
+              </figure>
+            
+            </li>
+
+          </ul>
+        </div> 
+        
+        <form>          
+          <span class="msg"></span>
+          <input type="text" placeholder="enter your city here:">
+          <button type="submit">add</button>
+        </form>
+
+
     </main>
     <script src="index.js"></script>
   </body>
