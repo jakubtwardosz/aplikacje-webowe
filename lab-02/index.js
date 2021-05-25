@@ -11,7 +11,7 @@ var channel1 = [];
 appStart();
 function appStart() {
     document.addEventListener('keypress', onKeyPress);
-    document.addEventListener('transitioned', onTransitioned);
+    //document.addEventListener('transitioned', onTransitioned);
     var btnPlayChannel1 = document.querySelector('#playChannel1');
     btnPlayChannel1.addEventListener('click', onPlayChannel1);
     getAudioElements();
@@ -39,7 +39,7 @@ function onKeyPress(ev) {
     playSound(key);
     console.log(channel1);
 }
-function onTransitioned(e) {
+function onTransitioned(ev) {
     this.classList.remove('playing');
 }
 // to może być jeden foreach

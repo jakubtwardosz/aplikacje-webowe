@@ -13,7 +13,7 @@ appStart();
 
 function appStart() { 
     document.addEventListener('keypress', onKeyPress);
-    // document.addEventListener('transitioned', onTransitioned);
+    //document.addEventListener('transitioned', onTransitioned);
 
     const btnPlayChannel1 = document.querySelector('#playChannel1');
     btnPlayChannel1.addEventListener('click', onPlayChannel1);
@@ -50,7 +50,7 @@ function onKeyPress(ev: KeyboardEvent): void{
 
 function onTransitioned(ev: KeyboardEvent): void{
     this.classList.remove('playing');
-}
+} 
 
 
 

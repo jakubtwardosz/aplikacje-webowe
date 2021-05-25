@@ -8,8 +8,11 @@ class StatsApp {
     data3Input: HTMLInputElement;
     data4Input: HTMLInputElement;
 
+    dataInput: HTMLInputElement;
+
     inputArray: HTMLInputElement[];
 
+    dataInputs: HTMLInputElement[];
     sumInput: HTMLInputElement;
     avgInput: HTMLInputElement;
     minInput: HTMLInputElement;
@@ -55,8 +58,13 @@ class StatsApp {
 
         this.inputArray = [];
 
-        const dataInputs = document.querySelectorAll('.data');
+        const dataInputs  = document.querySelectorAll('.data');    
 
+        let dataInput : any;
+
+       
+
+    
 
         this.data1Input = document.querySelector('#data1'); // Jak z tego zrobić tablicę?
         this.data2Input = document.querySelector('#data2');
@@ -71,16 +79,23 @@ class StatsApp {
 
     watchInputValues() {
         this.addButton.addEventListener('click', () => this.addInputs());
+
+        this.dataInput.addEventListener('input', () => this.computeData()); 
         
-        this.data1Input.addEventListener('input', () => this.computeData()); // Jak z tego zrobić pętlę?
-        this.data2Input.addEventListener('input', () => this.computeData());
-        this.data3Input.addEventListener('input', () => this.computeData());
-        this.data4Input.addEventListener('input', () => this.computeData());
+        // this.data1Input.addEventListener('input', () => this.computeData()); // Jak z tego zrobić pętlę?
+        // this.data2Input.addEventListener('input', () => this.computeData());
+        // this.data3Input.addEventListener('input', () => this.computeData());
+        // this.data4Input.addEventListener('input', () => this.computeData());
     }
 
     computeData(){
         
+        for (this.dataInput of data) {
+            
+             
+        }
 
+        const data = +this.dataInputs.value;
 
         const data1 = +this.data1Input.value; // +zmienia na typ number
         const data2 = +this.data2Input.value;

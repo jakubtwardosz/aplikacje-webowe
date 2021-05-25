@@ -15,15 +15,14 @@ class Main {
         // <input id="city-name" type="text">
         // <button id="add-button" type="submit">Dodaj</button>
 
-        const addCityForm = document.getElementById('add-city-form');
-        const addButton = document.getElementById('add-button');
-        const cityName = document.getElementById('city-name') as HTMLInputElement;
+        const form = document.querySelector('form');
+        const inputText = document.querySelector('form input') as HTMLInputElement;
 
 
-        addCityForm.addEventListener('submit', (event) => {    
+        form.addEventListener('submit', (event) => {    
             event.preventDefault();
 
-            const currentVal = cityName.value;
+            const currentVal = inputText.value;
 
             app.getCityInfo(currentVal).then((data : any) =>{
                 ui.populateUi(data);

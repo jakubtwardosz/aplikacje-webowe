@@ -1,5 +1,6 @@
 var StatsApp = /** @class */ (function () {
     function StatsApp() {
+        this.inputArray = [];
         this.startApp();
     }
     StatsApp.prototype.startApp = function () {
@@ -24,6 +25,7 @@ var StatsApp = /** @class */ (function () {
         this.addButton = document.querySelector('#addInputs');
         this.inputArray = [];
         var dataInputs = document.querySelectorAll('.data');
+        var dataInput;
         this.data1Input = document.querySelector('#data1'); // Jak z tego zrobić tablicę?
         this.data2Input = document.querySelector('#data2');
         this.data3Input = document.querySelector('#data3');
@@ -36,12 +38,17 @@ var StatsApp = /** @class */ (function () {
     StatsApp.prototype.watchInputValues = function () {
         var _this = this;
         this.addButton.addEventListener('click', function () { return _this.addInputs(); });
-        this.data1Input.addEventListener('input', function () { return _this.computeData(); }); // Jak z tego zrobić pętlę?
-        this.data2Input.addEventListener('input', function () { return _this.computeData(); });
-        this.data3Input.addEventListener('input', function () { return _this.computeData(); });
-        this.data4Input.addEventListener('input', function () { return _this.computeData(); });
+        this.dataInput.addEventListener('input', function () { return _this.computeData(); });
+        // this.data1Input.addEventListener('input', () => this.computeData()); // Jak z tego zrobić pętlę?
+        // this.data2Input.addEventListener('input', () => this.computeData());
+        // this.data3Input.addEventListener('input', () => this.computeData());
+        // this.data4Input.addEventListener('input', () => this.computeData());
     };
     StatsApp.prototype.computeData = function () {
+        for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
+            this.dataInput = data_1[_i];
+        }
+        var data = +this.dataInputs.value;
         var data1 = +this.data1Input.value; // +zmienia na typ number
         var data2 = +this.data2Input.value;
         var data3 = +this.data3Input.value;
