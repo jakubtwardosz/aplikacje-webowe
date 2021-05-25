@@ -1,35 +1,26 @@
 var StatsApp = /** @class */ (function () {
     function StatsApp() {
-        this.inputArray = [];
+        var _this = this;
+        this.dataInputsValues = [];
+        this.countNumber = 1;
+        var inputsCounter = document.getElementById('inputsCounter');
+        // Checking values in #inputsCounter 
+        inputsCounter.addEventListener('input', function () {
+            var target = event.target;
+            _this.countNumber = Number(target.value);
+            console.log(_this.countNumber);
+        });
         this.startApp();
     }
     StatsApp.prototype.startApp = function () {
         this.getInputs();
         this.watchInputValues();
     };
-    StatsApp.prototype.addInputs = function () {
-        var container = document.querySelector('.input-data');
-        while (container.hasChildNodes()) {
-            container.removeChild(container.lastChild);
-        }
-        for (var index = 0; index < +this.inputCounter.value; index++) {
-            var input = document.createElement('input');
-            input.type = 'text';
-            input.setAttribute('id', 'data' + (index + 1));
-            input.className = 'data';
-            container.appendChild(input);
-        }
-    };
     StatsApp.prototype.getInputs = function () {
-        this.inputCounter = document.querySelector('#inputsCounter');
-        this.addButton = document.querySelector('#addInputs');
-        this.inputArray = [];
-        var dataInputs = document.querySelectorAll('.data');
-        var dataInput;
-        this.data1Input = document.querySelector('#data1'); // Jak z tego zrobić tablicę?
+        this.data1Input = document.querySelector('#data1');
         this.data2Input = document.querySelector('#data2');
         this.data3Input = document.querySelector('#data3');
-        this.data4Input = document.querySelector('#data3');
+        this.data4Input = document.querySelector('#data4');
         this.sumInput = document.querySelector('#sum');
         this.avgInput = document.querySelector('#avg');
         this.minInput = document.querySelector('#min');
@@ -37,23 +28,17 @@ var StatsApp = /** @class */ (function () {
     };
     StatsApp.prototype.watchInputValues = function () {
         var _this = this;
-        this.addButton.addEventListener('click', function () { return _this.addInputs(); });
-        this.dataInput.addEventListener('input', function () { return _this.computeData(); });
-        // this.data1Input.addEventListener('input', () => this.computeData()); // Jak z tego zrobić pętlę?
-        // this.data2Input.addEventListener('input', () => this.computeData());
-        // this.data3Input.addEventListener('input', () => this.computeData());
-        // this.data4Input.addEventListener('input', () => this.computeData());
+        this.data1Input.addEventListener('input', function () { return _this.computeData(); });
+        this.data2Input.addEventListener('input', function () { return _this.computeData(); });
+        this.data3Input.addEventListener('input', function () { return _this.computeData(); });
+        this.data4Input.addEventListener('input', function () { return _this.computeData(); });
     };
     StatsApp.prototype.computeData = function () {
-        for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
-            this.dataInput = data_1[_i];
-        }
-        var data = +this.dataInputs.value;
-        var data1 = +this.data1Input.value; // +zmienia na typ number
+        var data1 = +this.data1Input.value;
         var data2 = +this.data2Input.value;
         var data3 = +this.data3Input.value;
         var data4 = +this.data4Input.value;
-        var sum = data1 + data2 + data3 + data4; // Przepisać to
+        var sum = data1 + data2 + data3 + data4;
         var avg = sum / 4;
         var min = Math.min(data1, data2, data3, data4);
         var max = Math.max(data1, data2, data3, data4);
@@ -67,4 +52,4 @@ var StatsApp = /** @class */ (function () {
     };
     return StatsApp;
 }());
-var statsApp = new StatsApp();
+var app = new StatsApp();
