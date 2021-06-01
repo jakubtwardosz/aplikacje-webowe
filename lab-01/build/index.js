@@ -10,17 +10,47 @@ var StatsApp = /** @class */ (function () {
             _this.countNumber = Number(target.value);
             console.log(_this.countNumber);
         });
+        this.inputArray.forEach(function (input) {
+            console.log(input);
+            input.addEventListener('input', function () { return _this.computeData(); });
+        });
         this.startApp();
     }
     StatsApp.prototype.startApp = function () {
+        this.addInputs();
         this.getInputs();
         this.watchInputValues();
     };
+    StatsApp.prototype.addInputs = function () {
+        var _this = this;
+        var container = document.querySelector('.input-data');
+        this.addButton = document.querySelector('#addInputs');
+        // Returns true if the specified node has any child nodes
+        while (container.hasChildNodes()) {
+            container.removeChild(container.lastChild);
+        }
+        for (var index = 0; index < this.countNumber.valueOf(); index++) {
+            var input = document.createElement('input');
+            input.type = 'text';
+            input.setAttribute('id', 'data' + (index + 1));
+            input.className = 'data';
+            container.appendChild(input);
+        }
+        this.addButton.addEventListener('click', function () { return _this.addInputs(); });
+    };
     StatsApp.prototype.getInputs = function () {
-        this.data1Input = document.querySelector('#data1');
-        this.data2Input = document.querySelector('#data2');
-        this.data3Input = document.querySelector('#data3');
-        this.data4Input = document.querySelector('#data4');
+        var _this = this;
+        this.inputArray = [];
+        var dataInputs = document.querySelectorAll(".data");
+        dataInputs.forEach(function (input) { return _this.inputArray.push(input); });
+        console.log(dataInputs);
+        // for (let i = 1; i < this.countNumber.valueOf(); i++) {
+        //     this.dataInputs[i] = document.querySelector('#data' + (i+1));
+        // }
+        // this.data1Input = document.querySelector('#data1');
+        // this.data2Input = document.querySelector('#data2');
+        // this.data3Input = document.querySelector('#data3');
+        // this.data4Input = document.querySelector('#data4');
         this.sumInput = document.querySelector('#sum');
         this.avgInput = document.querySelector('#avg');
         this.minInput = document.querySelector('#min');
@@ -28,23 +58,26 @@ var StatsApp = /** @class */ (function () {
     };
     StatsApp.prototype.watchInputValues = function () {
         var _this = this;
-        this.data1Input.addEventListener('input', function () { return _this.computeData(); });
-        this.data2Input.addEventListener('input', function () { return _this.computeData(); });
-        this.data3Input.addEventListener('input', function () { return _this.computeData(); });
-        this.data4Input.addEventListener('input', function () { return _this.computeData(); });
+        this.inputArray.forEach(function (input) {
+            console.log(input);
+            input.addEventListener('input', function () { return _this.computeData(); });
+        });
+        // this.data1Input.addEventListener('input', () => this.computeData());
+        // this.data2Input.addEventListener('input', () => this.computeData());
+        // this.data3Input.addEventListener('input', () => this.computeData());
+        // this.data4Input.addEventListener('input', () => this.computeData());
     };
     StatsApp.prototype.computeData = function () {
-        var data1 = +this.data1Input.value;
-        var data2 = +this.data2Input.value;
-        var data3 = +this.data3Input.value;
-        var data4 = +this.data4Input.value;
-        var sum = data1 + data2 + data3 + data4;
-        var avg = sum / 4;
-        var min = Math.min(data1, data2, data3, data4);
-        var max = Math.max(data1, data2, data3, data4);
-        this.showStats(sum, avg, min, max);
+        var inputsLength = this.inputArray.length;
+        var sum = 0;
+        this.inputArray.forEach(function (input) { return sum += +input.value; });
+        var avg = sum / inputsLength;
+        var inputValues = this.inputArray.map(function (el) { return Number(el.value); });
+        var min = Math.min.apply(Math, inputValues);
+        var max = Math.max.apply(Math, inputValues);
+        this.showData(sum, avg, min, max);
     };
-    StatsApp.prototype.showStats = function (sum, avg, min, max) {
+    StatsApp.prototype.showData = function (sum, avg, min, max) {
         this.sumInput.value = sum.toString();
         this.avgInput.value = avg.toString();
         this.minInput.value = min.toString();
