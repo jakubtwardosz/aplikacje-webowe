@@ -1,3 +1,5 @@
+let channelNumber = 3;
+
 let boom: HTMLAudioElement;
 let clap: HTMLAudioElement;
 let hihat: HTMLAudioElement;
@@ -13,74 +15,61 @@ let tom: HTMLAudioElement;
 // const channel2: any[] = [];
 // const channel3: any[] = [];
 
-class Recordings{
+class Sound{
+    key: string;
+    time: number;
 
-    isRecordingOn1 : boolean = false;
-    isRecordingOn2 : boolean = false;
-    isRecordingOn3 : boolean = false;
+    constructor(key: string, time: number){
+        this.key = key;
+        this.time = time;
+    }
+}
 
-    channel1: any[] = [];
-    channel2: any[] = [];
-    channel3: any[] = [];
-
+class Channel{
+    isRecordingOn : boolean = false;
+    sounds: Sound[] = [];
     startRecording : number = 0;
+}
 
-    setRecording(channelNumber : number, ev : Event){
+class Channels{
+    channels: Channel[] = [];
 
-        this.startRecording = ev.timeStamp;
-
-        console.log(this.startRecording);
-        switch(channelNumber){
-            case 1 :
-                this.isRecordingOn1 = !this.isRecordingOn1;
-                this.isRecordingOn2 = this.isRecordingOn3 = false;
-            break;
-            case 2 :
-                this.isRecordingOn2 = !this.isRecordingOn2;
-                this.isRecordingOn1 = this.isRecordingOn3 = false;
-            break;
-            case 3 :
-                this.isRecordingOn3 = !this.isRecordingOn3;
-                this.isRecordingOn2 = this.isRecordingOn1 = false;
-            break;
+    constructor(channelNumber: number){
+        for(let number = 0; number < channelNumber; number++){
+            this.channels.push(new Channel());
         }
     }
 
-    record(toRecord : any){
+    setRecording(channelNumber : number, ev : Event){
+        console.log(ev.timeStamp);
+
+        this.channels.forEach(element => {
+            element.isRecordingOn = false;
+        });
+
+        const recording = this.channels[channelNumber];
+        recording.isRecordingOn = !recording.isRecordingOn;
+        recording.startRecording = ev.timeStamp;
+    }
+
+    record(toRecord : Sound){
         // toRecord.time -= this.startRecording;
-        let newRecord = { ...toRecord, time: toRecord.time - this.startRecording };
-        if(this.isRecordingOn1){
-            this.channel1.push(newRecord);
-        } else if(this.isRecordingOn2){
-            this.channel2.push(newRecord);
-        } else if(this.isRecordingOn3){
-            this.channel3.push(newRecord);
-        }
+        this.channels
+            .filter(recording => recording.isRecordingOn)
+            .forEach(recording => recording.sounds.push({ ...toRecord, time: toRecord.time - recording.startRecording }));
     }
 
     play(channelNumber: number){
-        let channel;
-        switch(channelNumber){
-            case 1 :
-                channel = this.channel1;
-            break;
-            case 2 :
-                channel = this.channel2;
-            break;
-            case 3 :
-                channel = this.channel3;
-            break;
-        }        
-            this.playChannel(channel);
+        this.playSounds(this.channels[channelNumber].sounds);
     }
 
     playAll(){
-        console.log('aa');
-        this.playChannel(this.channel1.concat(this.channel2).concat(this.channel3));
+        console.log('aa'); 
+        this.playSounds(this.channels.flatMap(recording => recording.sounds));
         
     }
 
-    playChannel(channel: any[]){
+    playSounds(channel: Sound[]){
         channel.forEach(sound => {
             setTimeout(() => playSound(sound.key), sound.time);
         })
@@ -88,7 +77,7 @@ class Recordings{
 }
 
 
-let recordings : Recordings = new Recordings();
+let recordings : Channels = new Channels(channelNumber);
 
 class Drumkit{
     constructor(){
@@ -99,26 +88,28 @@ class Drumkit{
     appStart() {
         
         // this.isRecordingOn = false;
-
+        
         document.addEventListener('keypress', this.onKeyPress);
 
-        const btnPlayChannel1 = document.querySelector('#playChannel1');
-        const btnRecordChannel1 = document.querySelector('#recordChannel1');
+        for (let channel = 1; channel <= channelNumber; channel++){
+            const btnPlayChannel = document.querySelector('#playChannel' + channel);
+            const btnRecordChannel = document.querySelector('#recordChannel' + channel);
+    
+            btnPlayChannel.addEventListener('click', () => recordings.play(channel));
+            btnRecordChannel.addEventListener('click', (ev) => recordings.setRecording(channel, ev));
+        }
+ 
+        // const btnPlayChannel2 = document.querySelector('#playChannel2');
+        // const btnRecordChannel2 = document.querySelector('#recordChannel2');
 
-        btnPlayChannel1.addEventListener('click', () => recordings.play(1));
-        btnRecordChannel1.addEventListener('click', (ev) => recordings.setRecording(1, ev));
+        // btnPlayChannel2.addEventListener('click', () => recordings.play(2));
+        // btnRecordChannel2.addEventListener('click', (ev) => recordings.setRecording(2, ev));
 
-        const btnPlayChannel2 = document.querySelector('#playChannel2');
-        const btnRecordChannel2 = document.querySelector('#recordChannel2');
+        // const btnPlayChannel3 = document.querySelector('#playChannel3');
+        // const btnRecordChannel3 = document.querySelector('#recordChannel3');
 
-        btnPlayChannel2.addEventListener('click', () => recordings.play(2));
-        btnRecordChannel2.addEventListener('click', (ev) => recordings.setRecording(2, ev));
-
-        const btnPlayChannel3 = document.querySelector('#playChannel3');
-        const btnRecordChannel3 = document.querySelector('#recordChannel3');
-
-        btnPlayChannel3.addEventListener('click', () => recordings.play(3));
-        btnRecordChannel3.addEventListener('click', (ev) => recordings.setRecording(3, ev));
+        // btnPlayChannel3.addEventListener('click', () => recordings.play(3));
+        // btnRecordChannel3.addEventListener('click', (ev) => recordings.setRecording(3, ev));
 
         const btnPlayAllChannel = document.querySelector('#playAllChannels');
 
@@ -156,7 +147,7 @@ class Drumkit{
         const key = ev.key;
         const time = ev.timeStamp;
 
-        recordings.record({key, time});
+        recordings.record(new Sound(key, time));
 
         console.log(recordings);
         
