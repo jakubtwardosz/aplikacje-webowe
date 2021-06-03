@@ -12,8 +12,6 @@ class StatsApp{
     inputArray: HTMLInputElement[];
     dataInputs: HTMLInputElement[];
 
-    temparr
-
     sumInput: HTMLInputElement;
     avgInput: HTMLInputElement;
     minInput: HTMLInputElement;
@@ -100,7 +98,7 @@ class StatsApp{
             input.addEventListener('input', () => this.computeData())
         })
         
-
+ 
         // this.data1Input.addEventListener('input', () => this.computeData());
         // this.data2Input.addEventListener('input', () => this.computeData());
         // this.data3Input.addEventListener('input', () => this.computeData());
@@ -113,6 +111,10 @@ class StatsApp{
         this.inputArray.forEach(input => sum += +input.value);
         
         const avg: number = sum / inputsLength;
+
+
+        // 
+
         const inputValues: number[] = this.inputArray
             .filter((el) => el.value && !isNaN(Number(el.value)))
             .map((el) => Number(el.value)); 

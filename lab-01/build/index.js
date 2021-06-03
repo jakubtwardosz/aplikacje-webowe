@@ -75,6 +75,7 @@ var StatsApp = /** @class */ (function () {
         var sum = 0;
         this.inputArray.forEach(function (input) { return sum += +input.value; });
         var avg = sum / inputsLength;
+        // 
         var inputValues = this.inputArray
             .filter(function (el) { return el.value && !isNaN(Number(el.value)); })
             .map(function (el) { return Number(el.value); });
