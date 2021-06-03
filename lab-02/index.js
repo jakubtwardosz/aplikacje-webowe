@@ -1,19 +1,20 @@
-var boomSound;
-var clapSound;
-var hihatSound;
-var kickSound;
-var openhihat;
-var rideSound;
-var snareSound;
-var tinkSound;
-var tomSound;
+var boom;
+var clap;
+var hihat;
+var kick;
+var openhat;
+var ride;
+var snare;
+var tink;
+var tom;
 var channel1 = [];
 appStart();
 function appStart() {
     document.addEventListener('keypress', onKeyPress);
-    //document.addEventListener('transitioned', onTransitioned);
     var btnPlayChannel1 = document.querySelector('#playChannel1');
+    var btnRecordChannel1 = document.querySelector('#recordChannel1');
     btnPlayChannel1.addEventListener('click', onPlayChannel1);
+    btnRecordChannel1.addEventListener('click', onRecordChannel1);
     getAudioElements();
 }
 function onPlayChannel1() {
@@ -21,16 +22,20 @@ function onPlayChannel1() {
         setTimeout(function () { return playSound(sound.key); }, sound.time);
     });
 }
+function onRecordChannel1(ev) {
+    console.log(ev);
+    0;
+}
 function getAudioElements() {
-    boomSound = document.querySelector('[data-sound="boom"]');
-    clapSound = document.querySelector('[data-sound="clap"]');
-    hihatSound = document.querySelector('[data-sound="hihat"]');
-    kickSound = document.querySelector('[data-sound="kick"]');
-    openhihat = document.querySelector('[data-sound="openhihat"]');
-    rideSound = document.querySelector('[data-sound="ride"]');
-    snareSound = document.querySelector('[data-sound="snare"]');
-    tinkSound = document.querySelector('[data-sound="tink"]');
-    tomSound = document.querySelector('[data-sound="tom"]');
+    boom = document.querySelector('[data-sound="boom"]');
+    clap = document.querySelector('[data-sound="clap"]');
+    hihat = document.querySelector('[data-sound="hihat"]');
+    kick = document.querySelector('[data-sound="kick"]');
+    openhat = document.querySelector('[data-sound="openhat"]');
+    ride = document.querySelector('[data-sound="ride"]');
+    snare = document.querySelector('[data-sound="snare"]');
+    tink = document.querySelector('[data-sound="tink"]');
+    tom = document.querySelector('[data-sound="tom"]');
 }
 function onKeyPress(ev) {
     var key = ev.key;
@@ -39,57 +44,43 @@ function onKeyPress(ev) {
     playSound(key);
     console.log(channel1);
 }
-function onTransitioned(ev) {
-    this.classList.remove('playing');
-}
-// to może być jeden foreach
-// usuwanie klasy playing
 function playSound(key) {
     switch (key) {
         case 'q':
-            boomSound.currentTime = 0;
-            boomSound.play();
-            boomSound.classList.add('playing');
+            boom.currentTime = 0;
+            boom.play();
             break;
         case 'w':
-            clapSound.currentTime = 0;
-            clapSound.play();
-            clapSound.classList.add('playing');
+            clap.currentTime = 0;
+            clap.play();
             break;
         case 'e':
-            hihatSound.currentTime = 0;
-            hihatSound.play();
-            hihatSound.classList.add('playing');
+            hihat.currentTime = 0;
+            hihat.play();
             break;
         case 'r':
-            kickSound.currentTime = 0;
-            kickSound.play();
-            kickSound.classList.add('playing');
+            kick.currentTime = 0;
+            kick.play();
             break;
         case 't':
-            openhihat.currentTime = 0;
-            openhihat.play();
-            openhihat.classList.add('playing');
+            openhat.currentTime = 0;
+            openhat.play();
             break;
         case 'a':
-            rideSound.currentTime = 0;
-            rideSound.play();
-            rideSound.classList.add('playing');
+            ride.currentTime = 0;
+            ride.play();
             break;
         case 's':
-            snareSound.currentTime = 0;
-            snareSound.play();
-            snareSound.classList.add('playing');
+            snare.currentTime = 0;
+            snare.play();
             break;
         case 'd':
-            tinkSound.currentTime = 0;
-            tinkSound.play();
-            tinkSound.classList.add('playing');
+            tink.currentTime = 0;
+            tink.play();
             break;
         case 'f':
-            tomSound.currentTime = 0;
-            tomSound.play();
-            tomSound.classList.add('playing');
+            tom.currentTime = 0;
+            tom.play();
             break;
     }
 }

@@ -10,10 +10,10 @@ var StatsApp = /** @class */ (function () {
             _this.countNumber = Number(target.value);
             console.log(_this.countNumber);
         });
-        this.inputArray.forEach(function (input) {
-            console.log(input);
-            input.addEventListener('input', function () { return _this.computeData(); });
-        });
+        // this.inputArray.forEach(input => {
+        //     console.log(input);
+        //     input.addEventListener('input', () => this.computeData())
+        // })        
         this.startApp();
     }
     StatsApp.prototype.startApp = function () {
@@ -28,6 +28,7 @@ var StatsApp = /** @class */ (function () {
         // Returns true if the specified node has any child nodes
         while (container.hasChildNodes()) {
             container.removeChild(container.lastChild);
+            this.inputArray = [];
         }
         for (var index = 0; index < this.countNumber.valueOf(); index++) {
             var input = document.createElement('input');
@@ -35,15 +36,17 @@ var StatsApp = /** @class */ (function () {
             input.setAttribute('id', 'data' + (index + 1));
             input.className = 'data';
             container.appendChild(input);
+            this.inputArray.push(input);
+            input.addEventListener('input', function () { return _this.computeData(); });
         }
+        console.log(this.inputArray);
         this.addButton.addEventListener('click', function () { return _this.addInputs(); });
     };
     StatsApp.prototype.getInputs = function () {
-        var _this = this;
-        this.inputArray = [];
-        var dataInputs = document.querySelectorAll(".data");
-        dataInputs.forEach(function (input) { return _this.inputArray.push(input); });
-        console.log(dataInputs);
+        // this.inputArray = []; 
+        // const dataInputs = document.querySelectorAll(".data");
+        // dataInputs.forEach(input => this.inputArray.push(input as HTMLInputElement));
+        // console.log(dataInputs);
         // for (let i = 1; i < this.countNumber.valueOf(); i++) {
         //     this.dataInputs[i] = document.querySelector('#data' + (i+1));
         // }
@@ -72,7 +75,9 @@ var StatsApp = /** @class */ (function () {
         var sum = 0;
         this.inputArray.forEach(function (input) { return sum += +input.value; });
         var avg = sum / inputsLength;
-        var inputValues = this.inputArray.map(function (el) { return Number(el.value); });
+        var inputValues = this.inputArray
+            .filter(function (el) { return el.value && !isNaN(Number(el.value)); })
+            .map(function (el) { return Number(el.value); });
         var min = Math.min.apply(Math, inputValues);
         var max = Math.max.apply(Math, inputValues);
         this.showData(sum, avg, min, max);

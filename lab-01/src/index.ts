@@ -12,6 +12,8 @@ class StatsApp{
     inputArray: HTMLInputElement[];
     dataInputs: HTMLInputElement[];
 
+    temparr
+
     sumInput: HTMLInputElement;
     avgInput: HTMLInputElement;
     minInput: HTMLInputElement;
@@ -28,13 +30,10 @@ class StatsApp{
             console.log(this.countNumber);
         });
 
-        this.inputArray.forEach(input => {
-            console.log(input);
-            input.addEventListener('input', () => this.computeData())
-        })
-
-
-        
+        // this.inputArray.forEach(input => {
+        //     console.log(input);
+        //     input.addEventListener('input', () => this.computeData())
+        // })        
 
         this.startApp();
     }
@@ -52,6 +51,8 @@ class StatsApp{
 
         while (container.hasChildNodes()) {
             container.removeChild(container.lastChild);
+            this.inputArray = []; 
+
         }
 
         for (let index = 0; index < this.countNumber.valueOf(); index++) {
@@ -60,17 +61,23 @@ class StatsApp{
             input.setAttribute('id', 'data' + (index + 1));
             input.className = 'data';
             container.appendChild(input);            
+            this.inputArray.push(input);
+            input.addEventListener('input', () => this.computeData());            
         }
+        console.log(this.inputArray);
         this.addButton.addEventListener('click', () => this.addInputs());
     }
 
+    calculate
+
+
     getInputs(){
-        this.inputArray = []; 
-        const dataInputs = document.querySelectorAll(".data");
-        dataInputs.forEach(input => this.inputArray.push(input as HTMLInputElement));
+        // this.inputArray = []; 
+        // const dataInputs = document.querySelectorAll(".data");
+        // dataInputs.forEach(input => this.inputArray.push(input as HTMLInputElement));
 
         
-        console.log(dataInputs);
+        // console.log(dataInputs);
 
 
         // for (let i = 1; i < this.countNumber.valueOf(); i++) {
@@ -106,9 +113,11 @@ class StatsApp{
         this.inputArray.forEach(input => sum += +input.value);
         
         const avg: number = sum / inputsLength;
-        const inputValues: number[] = this.inputArray.map((el) => Number(el.value)); 
+        const inputValues: number[] = this.inputArray
+            .filter((el) => el.value && !isNaN(Number(el.value)))
+            .map((el) => Number(el.value)); 
         const min: number = Math.min(...inputValues);
-        const max: number = Math.max(...inputValues);
+        const max: number = Math.max(...inputValues); 
 
         this.showData(sum, avg, min, max)
     }

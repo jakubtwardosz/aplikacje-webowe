@@ -1,22 +1,28 @@
-let boomSound: HTMLAudioElement;
-let clapSound: HTMLAudioElement;
-let hihatSound: HTMLAudioElement;
-let kickSound: HTMLAudioElement;
-let openhihat: HTMLAudioElement;
-let rideSound: HTMLAudioElement;
-let snareSound: HTMLAudioElement;
-let tinkSound: HTMLAudioElement;
-let tomSound: HTMLAudioElement;
-
+let boom: HTMLAudioElement;
+let clap: HTMLAudioElement;
+let hihat: HTMLAudioElement;
+let kick: HTMLAudioElement;
+let openhat: HTMLAudioElement;
+let ride: HTMLAudioElement;
+let snare: HTMLAudioElement;
+let tink: HTMLAudioElement;
+let tom: HTMLAudioElement;
+ 
 const channel1: any[] = [];
+
 appStart();
 
 function appStart() { 
     document.addEventListener('keypress', onKeyPress);
-    //document.addEventListener('transitioned', onTransitioned);
 
     const btnPlayChannel1 = document.querySelector('#playChannel1');
+
+    const btnRecordChannel1 = document.querySelector('#recordChannel1');
+
     btnPlayChannel1.addEventListener('click', onPlayChannel1);
+
+    btnRecordChannel1.addEventListener('click', onRecordChannel1);
+
     getAudioElements();
 }
 
@@ -26,16 +32,20 @@ function onPlayChannel1(): void {
     })
 }
 
+function onRecordChannel1(ev: KeyboardEvent): void{
+    console.log(ev);0
+}
+
 function getAudioElements(): void {
-     boomSound = document.querySelector('[data-sound="boom"]');
-     clapSound = document.querySelector('[data-sound="clap"]');
-     hihatSound = document.querySelector('[data-sound="hihat"]');
-     kickSound = document.querySelector('[data-sound="kick"]');
-     openhihat = document.querySelector('[data-sound="openhihat"]');
-     rideSound = document.querySelector('[data-sound="ride"]');
-     snareSound = document.querySelector('[data-sound="snare"]');
-     tinkSound = document.querySelector('[data-sound="tink"]');
-     tomSound = document.querySelector('[data-sound="tom"]');
+     boom = document.querySelector('[data-sound="boom"]');
+     clap = document.querySelector('[data-sound="clap"]');
+     hihat = document.querySelector('[data-sound="hihat"]');
+     kick = document.querySelector('[data-sound="kick"]');
+     openhat = document.querySelector('[data-sound="openhat"]');
+     ride = document.querySelector('[data-sound="ride"]');
+     snare = document.querySelector('[data-sound="snare"]');
+     tink = document.querySelector('[data-sound="tink"]');
+     tom = document.querySelector('[data-sound="tom"]');
 }
 
 function onKeyPress(ev: KeyboardEvent): void{
@@ -48,62 +58,45 @@ function onKeyPress(ev: KeyboardEvent): void{
     console.log(channel1);
 }
 
-function onTransitioned(ev: KeyboardEvent): void{
-    this.classList.remove('playing');
-} 
+function playSound(key: string) {
 
-
-
-    // to może być jeden foreach
-    // usuwanie klasy playing
-    function playSound(key: string) {
-
-        switch(key){
-            case 'q':
-                boomSound.currentTime = 0;
-                boomSound.play();
-                boomSound.classList.add('playing'); 
-                break;
-            case 'w':
-                clapSound.currentTime = 0;
-                clapSound.play();
-                clapSound.classList.add('playing');
-                break;
-            case 'e':
-                hihatSound.currentTime = 0;
-                hihatSound.play();                
-                hihatSound.classList.add('playing');
-                break;
-            case 'r':
-                kickSound.currentTime = 0;
-                kickSound.play();                
-                kickSound.classList.add('playing');
-                break;
-            case 't':
-                openhihat.currentTime = 0;
-                openhihat.play();                
-                openhihat.classList.add('playing');
-                break;
-            case 'a':
-                rideSound.currentTime = 0;
-                rideSound.play();                
-                rideSound.classList.add('playing');
-                break;
-            case 's':
-                snareSound.currentTime = 0;
-                snareSound.play();                
-                snareSound.classList.add('playing');
-                break;
-            case 'd':
-                tinkSound.currentTime = 0;
-                tinkSound.play();                
-                tinkSound.classList.add('playing');
-                break;
-            case 'f':
-                tomSound.currentTime = 0;
-                tomSound.play();
-                tomSound.classList.add('playing');
-                break;            
-        }
+    switch(key){
+        case 'q':
+            boom.currentTime = 0;
+            boom.play();
+            break;
+        case 'w':
+            clap.currentTime = 0;
+            clap.play();
+            break;
+        case 'e':
+            hihat.currentTime = 0;
+            hihat.play();
+            break;
+        case 'r':
+            kick.currentTime = 0;
+            kick.play();
+            break;
+        case 't':
+            openhat.currentTime = 0;
+            openhat.play();
+            break;
+        case 'a':
+            ride.currentTime = 0;
+            ride.play();
+            break;
+        case 's':
+            snare.currentTime = 0;
+            snare.play();
+            break;
+        case 'd':
+            tink.currentTime = 0;
+            tink.play();
+            break;
+        case 'f':
+            tom.currentTime = 0;
+            tom.play();
+            break;            
     }
+}
    
