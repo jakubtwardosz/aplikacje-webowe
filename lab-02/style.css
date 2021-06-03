@@ -18,26 +18,33 @@ h1{
 }
 
 .drumkit{
-    width: 400px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 
 .pad{
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     margin: 10px;
+    transition: all .07s ease;
 
     box-shadow: 0 8px 6px -6px #14213D;
     background-color: #000000;
     color: #FFFFFF;
-    font-size: 20px;
+    font-size: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     user-select: none;
+    border: 5px solid #ffa62e; 
 }
+
+.playing {
+    transform: scale(1.1);
+    border-color: #ea4d2c;
+    box-shadow: 0 0 1rem #ea4d2c;
+  }
 
 .pad :hover{
     background-color: darken(#FFF, 10%);
@@ -49,13 +56,39 @@ h1{
     transform: scale(1.1);
     transition: all .2s;
 }
+.buttons-container{
+    margin: 10px;
+}
 
-.pad-1, .pad-2, .pad-3 { 
-    border: 5px solid #ea4d2c; 
+.record{
+    background-color: #D5150B;
 }
-.pad-4, .pad-5, .pad-6{
-    border: 5px solid #14213D; 
+
+.play{
+    background-color: #256D1B;
 }
-.pad-7, .pad-8, .pad-9 { 
-    border: 5px solid #ffa62e; 
+
+.play-all{
+    background-color: #ffa62e;
 }
+
+.button {
+    padding: 15px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 8px 6px -6px #14213d;
+  }
+  
+  .button:hover {background-color:rgba(255, 255, 255, 0.05);}
+  
+  .button:active {
+    background-color:rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 6px -6px #14213d;
+    transform: translateY(4px);
+  }

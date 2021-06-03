@@ -9,6 +9,7 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var channelNumber = 4;
 var boom;
 var clap;
 var hihat;
@@ -18,101 +19,81 @@ var ride;
 var snare;
 var tink;
 var tom;
-// let isRecordingOn : boolean = false;
-// const channel1: any[] = [];
-// const channel2: any[] = [];
-// const channel3: any[] = [];
-var Recordings = /** @class */ (function () {
-    function Recordings() {
-        this.isRecordingOn1 = false;
-        this.isRecordingOn2 = false;
-        this.isRecordingOn3 = false;
-        this.channel1 = [];
-        this.channel2 = [];
-        this.channel3 = [];
+var Sound = /** @class */ (function () {
+    function Sound(key, time) {
+        this.key = key;
+        this.time = time;
+    }
+    return Sound;
+}());
+var Channel = /** @class */ (function () {
+    function Channel() {
+        this.isRecordingOn = false;
+        this.sounds = [];
         this.startRecording = 0;
     }
-    Recordings.prototype.setRecording = function (channelNumber, ev) {
-        this.startRecording = ev.timeStamp;
-        console.log(this.startRecording);
-        switch (channelNumber) {
-            case 1:
-                this.isRecordingOn1 = !this.isRecordingOn1;
-                this.isRecordingOn2 = this.isRecordingOn3 = false;
-                break;
-            case 2:
-                this.isRecordingOn2 = !this.isRecordingOn2;
-                this.isRecordingOn1 = this.isRecordingOn3 = false;
-                break;
-            case 3:
-                this.isRecordingOn3 = !this.isRecordingOn3;
-                this.isRecordingOn2 = this.isRecordingOn1 = false;
-                break;
+    return Channel;
+}());
+var Channels = /** @class */ (function () {
+    function Channels(channelNumber) {
+        this.channels = [];
+        console.log(channelNumber);
+        for (var number = 0; number < channelNumber; number++) {
+            this.channels.push(new Channel());
         }
+    }
+    Channels.prototype.setRecording = function (channelNumber, ev) {
+        console.log(ev.timeStamp);
+        this.channels.forEach(function (element) {
+            element.isRecordingOn = false;
+        });
+        var recording = this.channels[channelNumber];
+        recording.isRecordingOn = !recording.isRecordingOn;
+        recording.startRecording = ev.timeStamp;
     };
-    Recordings.prototype.record = function (toRecord) {
+    Channels.prototype.record = function (toRecord) {
         // toRecord.time -= this.startRecording;
-        var newRecord = __assign(__assign({}, toRecord), { time: toRecord.time - this.startRecording });
-        if (this.isRecordingOn1) {
-            this.channel1.push(newRecord);
-        }
-        else if (this.isRecordingOn2) {
-            this.channel2.push(newRecord);
-        }
-        else if (this.isRecordingOn3) {
-            this.channel3.push(newRecord);
-        }
+        this.channels
+            .filter(function (recording) { return recording.isRecordingOn; })
+            .forEach(function (recording) {
+            return recording.sounds.push(__assign(__assign({}, toRecord), { time: toRecord.time - recording.startRecording }));
+        });
     };
-    Recordings.prototype.play = function (channelNumber) {
-        var channel;
-        switch (channelNumber) {
-            case 1:
-                channel = this.channel1;
-                break;
-            case 2:
-                channel = this.channel2;
-                break;
-            case 3:
-                channel = this.channel3;
-                break;
-        }
+    Channels.prototype.play = function (channelNumber) {
+        this.playSounds(this.channels[channelNumber].sounds);
+    };
+    Channels.prototype.playAll = function () {
+        this.playSounds(this.channels.flatMap(function (recording) { return recording.sounds; }));
+    };
+    Channels.prototype.playSounds = function (channel) {
         channel.forEach(function (sound) {
             setTimeout(function () { return playSound(sound.key); }, sound.time);
         });
     };
-    return Recordings;
+    return Channels;
 }());
-var recordings = new Recordings();
+var recordings = new Channels(channelNumber);
 var Drumkit = /** @class */ (function () {
     function Drumkit() {
         this.appStart();
     }
     Drumkit.prototype.appStart = function () {
-        // this.isRecordingOn = false;
-        document.addEventListener('keypress', this.onKeyPress);
-        var btnPlayChannel1 = document.querySelector('#playChannel1');
-        var btnRecordChannel1 = document.querySelector('#recordChannel1');
-        btnPlayChannel1.addEventListener('click', function () { return recordings.play(1); });
-        btnRecordChannel1.addEventListener('click', function (ev) { return recordings.setRecording(1, ev); });
-        var btnPlayChannel2 = document.querySelector('#playChannel2');
-        var btnRecordChannel2 = document.querySelector('#recordChannel2');
-        btnPlayChannel2.addEventListener('click', function () { return recordings.play(2); });
-        btnRecordChannel2.addEventListener('click', function (ev) { return recordings.setRecording(2, ev); });
-        var btnPlayChannel3 = document.querySelector('#playChannel3');
-        var btnRecordChannel3 = document.querySelector('#recordChannel3');
-        btnPlayChannel3.addEventListener('click', function () { return recordings.play(3); });
-        btnRecordChannel3.addEventListener('click', function (ev) { return recordings.setRecording(3, ev); });
+        document.addEventListener("keypress", this.onKeyPress);
+        var _loop_1 = function (channel) {
+            var btnPlayChannel = document.querySelector("#playChannel" + channel);
+            var btnRecordChannel = document.querySelector("#recordChannel" + channel);
+            btnPlayChannel.addEventListener("click", function () { return recordings.play(channel); });
+            btnRecordChannel.addEventListener("click", function (ev) {
+                return recordings.setRecording(channel, ev);
+            });
+        };
+        for (var channel = 1; channel <= channelNumber; channel++) {
+            _loop_1(channel);
+        }
+        var btnPlayAllChannel = document.querySelector("#playAllChannels");
+        btnPlayAllChannel.addEventListener("click", function () { return recordings.playAll(); });
         this.getAudioElements();
     };
-    // onPlayChannel(channel : any[]): void {
-    //     channel.forEach(sound => {
-    //         setTimeout(() => playSound(sound.key), sound.time);
-    //     })
-    // }
-    // onRecordChannel1(ev: Event): void{
-    //     isRecordingOn = !isRecordingOn;
-    //     //console.log(isRecordingOn);
-    // }
     Drumkit.prototype.getAudioElements = function () {
         boom = document.querySelector('[data-sound="boom"]');
         clap = document.querySelector('[data-sound="clap"]');
@@ -128,47 +109,61 @@ var Drumkit = /** @class */ (function () {
         console.log(ev);
         var key = ev.key;
         var time = ev.timeStamp;
-        recordings.record({ key: key, time: time });
-        console.log(recordings);
+        var pad = document.querySelector(".pad-" + ev.key);
+        if (pad === null) {
+            return; // exception
+        }
+        pad.classList.add('playing');
+        recordings.record(new Sound(key, time));
+        var pads = document.querySelectorAll('.pad');
+        pads.forEach(function (pad) {
+            pad.addEventListener('transitionend', removeTransition);
+            console.log(pad);
+        });
         playSound(key);
     };
     return Drumkit;
 }());
+function removeTransition(ev) {
+    if (ev.propertyName !== 'transform') //skip if not a transform
+        return;
+    this.classList.remove('playing');
+}
 function playSound(key) {
     switch (key) {
-        case 'q':
+        case "q":
             boom.currentTime = 0;
             boom.play();
             break;
-        case 'w':
+        case "w":
             clap.currentTime = 0;
             clap.play();
             break;
-        case 'e':
+        case "e":
             hihat.currentTime = 0;
             hihat.play();
             break;
-        case 'r':
+        case "r":
             kick.currentTime = 0;
             kick.play();
             break;
-        case 't':
+        case "t":
             openhat.currentTime = 0;
             openhat.play();
             break;
-        case 'a':
+        case "a":
             ride.currentTime = 0;
             ride.play();
             break;
-        case 's':
+        case "s":
             snare.currentTime = 0;
             snare.play();
             break;
-        case 'd':
+        case "d":
             tink.currentTime = 0;
             tink.play();
             break;
-        case 'f':
+        case "f":
             tom.currentTime = 0;
             tom.play();
             break;
