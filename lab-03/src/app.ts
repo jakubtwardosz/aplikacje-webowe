@@ -1,5 +1,4 @@
 export class App {
-    // Zmienić klucz api po aktywacji 
     opwApiKey = '51069f88456216e76d29bc1c50d8e00f';
     constructor() {
         // Wywołać po kilknięciu przycisku dodaj
@@ -12,10 +11,11 @@ export class App {
         return weather;
     }
     async getWeather(city: string): Promise<any> {
-        const openWeatherUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${this.opwApiKey}`;
+        const openWeatherUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${this.opwApiKey}&units=metric`;
         const weatherResponse = await fetch(openWeatherUrl);
         const weatherData = await weatherResponse.json(); // JSON.parse()
-        console.log(weatherData);
+        console.log(weatherResponse);
+        
         return weatherData;
     }
     saveData(data: any) {

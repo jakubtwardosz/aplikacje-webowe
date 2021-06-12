@@ -1,47 +1,47 @@
 export class Ui {
     constructor(){
-        // this.uiContainer = document.getElementById('content');
-        // this.city;
     }
 
     populateUi(weatherData : any){
 
         const uiContainer = document.querySelector('.cities');
 
+        
+
         const printWeather = async () => {           
         
-            let a = await weatherData;           
+            let city = await weatherData;
+            
+            console.log(city);
+
+            
+
+
             
             uiContainer.innerHTML = `
-                
-                
                 <li class="city">
-
-                    <h2 class="city-name">
-                        <span>Kraków</span>
-                        <sup>PL</sup>
-                    </h2>
-
-                    <figure>
-                        <img class="city-icon" src="http://openweathermap.org/img/w/01d.png" alt="Clouds">
-                        <figcaption>Clouds</figcaption>
-                    </figure>
-
-                    <div class="city-temperature">19 <sup>°C</sup> </div>
-                    <div class="city-pressure">1018 <sup>hPA</sup> </div>
-                    <div class="city-humidity">40 <sup>%</sup></div>
-            
+                    <div>
+                        <span class="city-name">${city.name}</span>
+                        <div class="city-temperature-main">
+                            <span class="city-temperature">${Math.round(city.main.temp)}&deg;</span>
+                            <img class="city-icon" src="http://openweathermap.org/img/w/${city.weather[0].icon}.png" alt="${city.weather[0].main}">                            
+                        </div>
+                        <span class="city-main">${city.weather[0].main}</span>                        
+                    </div>
+                    <div class="city-stats">
+                        <span class="city-humidity">${city.main.humidity}%</span>
+                        <span class="city-pressure">${city.main.pressure}hPa</span>
+                        <span class="city-wind">${city.wind.deg}m/s</span>
+                    </div>
                 </li>
-
-
-                
             `;
         }
         
-        printWeather();
-
-
         
+
+
+
+        printWeather();
     }
 }
 

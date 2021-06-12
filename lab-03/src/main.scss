@@ -1,10 +1,23 @@
-/* https://coolors.co/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529 */
+/* https://coolors.co/e0e0e0-bebebe-ffffff-2667ff-3b28cc */
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+@mixin softUi {
+  border-radius: 25px;
+  background: #e0e0e0;
+  box-shadow:  20px 20px 60px #bebebe,
+             -20px -20px 60px #ffffff;  
+}
+
+@mixin center {
+    display:flex;
+    justify-content:center;
+    align-items:center;  
 }
 
 body{
@@ -14,53 +27,73 @@ body{
   flex-direction: column;
   align-items: center;
   font-family: 'Roboto', sans-serif;
-  background: linear-gradient(to bottom, #87CEFA 0%, #78BFEB 100%);
+  background: #ffffff;
+  color:#050311;
 }
 
 form{  
   display: flex;
   justify-content: center;
-
+  
   input, button{
     margin: 10px;
-    padding: 15px;
+    padding: 20px;
     border: none;
     outline: none;
     box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
     font-size: 16px;
-  }
-
-  input{   
-    color: #212529;
+    @include softUi();
   }
 
   button{
-    color: #F8F9FA;
-    background-color: #343A40;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #2667ff;
+    transition: background-color 0.8s;
+    :hover > &{
+      background-color: #3b28cc;
+    }
+    :active > &{
+      background-color: #3b28cc;
+      transform: translateY(4px);
+    }
   }
 }
 
-.cities{
+
+.cities{  
   margin-top: 50px;
   list-style: none;
   display: grid;
   grid-gap: 0 80px;
   grid-template-columns: repeat(3, 1fr);
 
-  .city{
-    color:#fff;
-    padding: 20px;
-    border: 5px solid #FFF;
-    border-radius: 10px;
+  .city-name{
+    font-size: 14px;
+  }
+
+  .city-temperature-main{
+    font-size: 48px;
+  }
+
+  .city-stats{
+    span{
+      padding: 0 10px;
+    }
+  }
+
+  .city-stats, .city-temperature-main {
+    @include center();
+  }
+
+  li{
+    @include softUi();
     text-align: center;
 
-    .city-name{
+    h2{
       sup{
         font-size: 10px;
         padding: 1px 6px;
-        border-radius: 10px;
-        color: #78BFEB;
-        background: #FFF;
       }
     }
     
@@ -75,11 +108,6 @@ form{
       figcaption{
         text-align: center;
       }
-    }
-
-    div{
-      display: inline-block;
-      margin: 10px;
     }
   }
 }
