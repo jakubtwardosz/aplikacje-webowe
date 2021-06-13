@@ -4,21 +4,14 @@ export class Ui {
 
     populateUi(weatherData : any){
 
-        const uiContainer = document.querySelector('.cities');
-
-        
+        const uiContainer = document.querySelector('.cities');       
 
         const printWeather = async () => {           
         
             let city = await weatherData;
             
-            console.log(city);
-
-            
-
-
-            
-            uiContainer.innerHTML = `
+            // Wyrzucić mathround  
+            uiContainer.innerHTML += `
                 <li class="city">
                     <div>
                         <span class="city-name">${city.name}</span>
@@ -35,12 +28,7 @@ export class Ui {
                     </div>
                 </li>
             `;
-        }
-        
-        
-
-
-
+        }        
         printWeather();
     }
 }
