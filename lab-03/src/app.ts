@@ -5,12 +5,13 @@ export class App {
     constructor() {
         // Wywołać po kilknięciu przycisku dodaj
         // this.getCityInfo(city: string);
+        //this.getData();
+        //console.log(this.getData());
     }
 
     async getCityInfo(city: string) {
         const weather = await this.getWeather(city);
         this.saveData(weather);
-        //console.log(weather);
         return weather;
     }
     async getWeather(city: string): Promise<any> {
@@ -30,12 +31,37 @@ export class App {
     }
 
     getData() {
-        const data = localStorage.getItem('weatherData');
-        if (data) {
-            return JSON.parse(data);
-        } else {
-            return {};
-        }
+        const data = localStorage.getItem('cities');
+        const data2: string[] = [...JSON.parse(localStorage["cities"])];
+
+        data2.forEach(city => this.getCityInfo(city));
+
+
+
+        // if(localStorage.getItem("cities") === null)
+        //     localStorage.setItem("cities", JSON.stringify(this.cities));
+
+        // const data: string[] = [...JSON.parse(localStorage["cities"])];  
+        // data.forEach(city => this.getCityInfo(city));
+
+        
+
+
+
+        // if (data) {
+        //     return JSON.parse(data);
+        // } else {
+        //     return {};
+        // }
+
+        // window.localStorage.clear();
+        
+
+        
+
+
+
+
     }
 }
 

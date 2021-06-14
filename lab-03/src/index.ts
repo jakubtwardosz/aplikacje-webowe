@@ -9,11 +9,10 @@ class Main {
 
     constructor() {
         this.inputEvents();
+        app.getData();
     }
 
     inputEvents() {
-        // <input id="city-name" type="text">
-        // <button id="add-button" type="submit">Dodaj</button>
 
         const form = document.querySelector('form');
         const inputText = document.querySelector('form input') as HTMLInputElement;

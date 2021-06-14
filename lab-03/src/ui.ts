@@ -9,6 +9,8 @@ export class Ui {
         const printWeather = async () => {           
         
             let city = await weatherData;
+
+            let cityTemp = Math.round(city.main.temp);
             
             // Wyrzucić mathround  
             uiContainer.innerHTML += `
@@ -16,15 +18,15 @@ export class Ui {
                     <div>
                         <span class="city-name">${city.name}</span>
                         <div class="city-temperature-main">
-                            <span class="city-temperature">${Math.round(city.main.temp)}&deg;</span>
+                            <span class="city-temperature">${cityTemp}&deg;</span>
                             <img class="city-icon" src="http://openweathermap.org/img/w/${city.weather[0].icon}.png" alt="${city.weather[0].main}">                            
                         </div>
                         <span class="city-main">${city.weather[0].main}</span>                        
                     </div>
                     <div class="city-stats">
-                        <span class="city-humidity">${city.main.humidity}%</span>
-                        <span class="city-pressure">${city.main.pressure}hPa</span>
-                        <span class="city-wind">${city.wind.deg}m/s</span>
+                        <span class="city-humidity">Humidity:<br />${city.main.humidity}%</span>
+                        <span class="city-pressure">Pressure:<br />${city.main.pressure}hPa</span>
+                        <span class="city-wind">Wind:<br />${city.wind.deg}m/s</span>
                     </div>
                 </li>
             `;
