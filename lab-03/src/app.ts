@@ -1,3 +1,7 @@
+import { Ui } from './ui';
+
+const ui = new Ui();
+
 export class App {
     opwApiKey = '51069f88456216e76d29bc1c50d8e00f';
     cities: string[] = [];
@@ -31,37 +35,14 @@ export class App {
     }
 
     getData() {
-        const data = localStorage.getItem('cities');
-        const data2: string[] = [...JSON.parse(localStorage["cities"])];
+        const data : string[] = [...JSON.parse(localStorage.getItem('cities'))];
 
-        data2.forEach(city => this.getCityInfo(city));
+        console.log(typeof(data));
 
-
-
-        // if(localStorage.getItem("cities") === null)
-        //     localStorage.setItem("cities", JSON.stringify(this.cities));
-
-        // const data: string[] = [...JSON.parse(localStorage["cities"])];  
-        // data.forEach(city => this.getCityInfo(city));
-
-        
-
-
-
-        // if (data) {
-        //     return JSON.parse(data);
-        // } else {
-        //     return {};
-        // }
-
-        // window.localStorage.clear();
-        
-
-        
-
-
-
-
+        data.forEach(city => this.getCityInfo(city).then((data : any) =>{
+                 ui.populateUi(data);
+             })
+        );        
     }
 }
 
